@@ -3,7 +3,6 @@ package com.example.administrator.androiddesignpatterns.chapter01;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
 
 import com.example.administrator.androiddesignpatterns.R;
 
@@ -47,6 +46,8 @@ public class SingleInstanceActivity extends AppCompatActivity {
         Log.e("TAG", "SingleInstanceStatic" + SingleInstanceManager.getInstance("1"));
         Log.e("TAG", "SingleInstanceStatic" + SingleInstanceManager.getInstance("1"));
         Log.e("TAG", "SingleInstanceStatic" + SingleInstanceManager.getInstance("1"));
+
+        new Test().testMethod();
     }
 
 }
