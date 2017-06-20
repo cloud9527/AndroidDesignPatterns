@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        String url = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1497404767836&di=d9a7ac789b1dfa441cba2f5479d2b8e2&imgtype=0&src=http%3A%2F%2Fbbsatt.yineitong.com%2Fforum%2F2011%2F03%2F25%2F110325164993a2105258f0d314.jpg";
+        String url = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1498603996&di=f3b9a7a4d003d52bf5aeea01bcf7efab&imgtype=jpg&er=1&src=http%3A%2F%2Fwww.1tong.com%2Fuploads%2Fwallpaper%2Flandscapes%2F273-1-1920x1200.jpg";
         ImageView iv = (ImageView) findViewById(R.id.iv);
         ImageLoader imageLoader = new ImageLoader();
         imageLoader.displayImage(url,iv);
