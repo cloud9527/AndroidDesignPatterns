@@ -1,4 +1,4 @@
-package com.example.administrator.androiddesignpatterns;
+package com.example.administrator.androiddesignpatterns.imageloaderv1;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,43 +11,36 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
+ * 第一版本，耦合性太高
  * Created by Administrator on 2017/6/14.
  */
 
-public class ImageLoader {
-    // 图片缓存
+public class ImageLoaderV1 {
     LruCache<String, Bitmap> mImageCache;
-    // 线程池,线程数量为CPU的数量
-    ExecutorService mExecutorService = Executors.newFixedThreadPool (Runtime.getRuntime().availableProcessors());
+    ExecutorService mExecutorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 
-    public ImageLoader() {
+    public ImageLoaderV1() {
         initImageCache();
     }
 
     private void initImageCache() {
-        // 计算可使用的最大内存
         final int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
-        // 取四分之一的可用内存作为缓存
         final int cacheSize = maxMemory / 4;
         mImageCache = new LruCache<String, Bitmap>(cacheSize) {
-
             @Override
-            protected int sizeOf(String key, Bitmap bitmap) {
-                return bitmap.getRowBytes() * bitmap.getHeight() / 1024;
+            protected int sizeOf(String key, Bitmap value) {
+                return value.getRowBytes() * value.getHeight() / 1024;
             }
         };
     }
 
-    public  void displayImage(final String url, final ImageView imageView) {
+    public void displayImage(final String url, final ImageView imageView) {
         imageView.setTag(url);
         mExecutorService.submit(new Runnable() {
-
             @Override
-            public  void run() {
+            public void run() {
                 Bitmap bitmap = downloadImage(url);
-                if (bitmap == null) {
-                    return;
-                }
+                if (bitmap == null) return;
                 if (imageView.getTag().equals(url)) {
                     imageView.setImageBitmap(bitmap);
                 }
@@ -56,19 +49,16 @@ public class ImageLoader {
         });
     }
 
-    public  Bitmap downloadImage(String imageUrl) {
+    private Bitmap downloadImage(String imageUrl) {
         Bitmap bitmap = null;
         try {
             URL url = new URL(imageUrl);
-            final HttpURLConnection conn =
-                    (HttpURLConnection)url.openConnection();
-            bitmap = BitmapFactory.decodeStream(
-                    conn.getInputStream());
-            conn.disconnect();
+            final HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            bitmap = BitmapFactory.decodeStream(connection.getInputStream());
+            connection.disconnect();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return bitmap;
     }
 }

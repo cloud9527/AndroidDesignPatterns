@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.example.administrator.androiddesignpatterns.chapter01.SingleInstanceActivity;
+import com.example.administrator.androiddesignpatterns.imageloaderv3.ImageLoaderV3;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -14,10 +15,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        String url = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1498603996&di=f3b9a7a4d003d52bf5aeea01bcf7efab&imgtype=jpg&er=1&src=http%3A%2F%2Fwww.1tong.com%2Fuploads%2Fwallpaper%2Flandscapes%2F273-1-1920x1200.jpg";
+        String url = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1498065672940&di=0f6ffeba3b712a4a4fbad0e2257fb9db&imgtype=0&src=http%3A%2F%2Fimg1.skqkw.cn%3A888%2F2014%2F11%2F20%2F12%2F3o5geq2jkyr-72668.jpg";
         ImageView iv = (ImageView) findViewById(R.id.iv);
-        ImageLoader imageLoader = new ImageLoader();
-        imageLoader.displayImage(url,iv);
+        ImageLoaderV3 imageLoaderV3 = new ImageLoaderV3();
+        imageLoaderV3.setUseDisCahe(true);
+        imageLoaderV3.displayImage(url,iv);
     }
 
     public void click(View view) {
