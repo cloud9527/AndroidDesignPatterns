@@ -1,4 +1,4 @@
-package com.example.administrator.androiddesignpatterns.imageloaderv3;
+package com.example.administrator.androiddesignpatterns.imageloader;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,13 +11,15 @@ import java.io.IOException;
  * sd卡存储
  * Created by Administrator on 2017/6/21.
  */
-public class DiskCache {
+public class DiskCache implements ImageCache {
     static String cacheDir = "sdcard/cache/";
 
+    @Override
     public Bitmap get(String url) {
         return BitmapFactory.decodeFile(cacheDir + url);
     }
 
+    @Override
     public void put(String url, Bitmap bitmap) {
         FileOutputStream fileOutputStream = null;
         try {
@@ -26,7 +28,7 @@ public class DiskCache {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } finally {
-            if (fileOutputStream!=null){
+            if (fileOutputStream != null) {
                 try {
                     fileOutputStream.close();
                 } catch (IOException e) {
